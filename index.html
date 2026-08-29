@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FrostyLobo | VFX Artist & Game Developer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* === BASE STYLES & BACKGROUND === */
+        :root {
+            --text-main: #1a2a3a;
+            --text-muted: #4a5c6a;
+            --accent: #0066cc;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-main);
+            min-height: 100vh;
+            /* Light blue abstract pattern background */
+            background: 
+                radial-gradient(circle at 15% 50%, rgba(135, 206, 250, 0.4), transparent 50%),
+                radial-gradient(circle at 85% 30%, rgba(176, 224, 230, 0.6), transparent 50%),
+                linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            box-sizing: border-box;
+        }
+
+        /* === WINDOWS 7 AERO GLASSMORPHISM === */
+        .aero-glass {
+            background: linear-gradient(
+                135deg,
+                rgba(255, 255, 255, 0.5) 0%,
+                rgba(255, 255, 255, 0.2) 100%
+            );
+            backdrop-filter: blur(16px) saturate(120%);
+            -webkit-backdrop-filter: blur(16px) saturate(120%);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            /* The classic Aero top-edge highlight */
+            border-top: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 
+                0 8px 32px 0 rgba(31, 38, 135, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 1),
+                inset 0 -1px 2px rgba(255,255,255, 0.3);
+            border-radius: 16px;
+        }
+
+        /* === LAYOUT === */
+        .portfolio-container {
+            max-width: 900px;
+            width: 100%;
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: 1fr 2fr;
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            padding: 2rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 
+                0 12px 40px 0 rgba(31, 38, 135, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 1);
+        }
+
+        /* === PROFILE SECTION === */
+        .profile-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .profile-pic-wrapper {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            padding: 5px;
+            background: rgba(255, 255, 255, 0.5);
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1), 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 1.5rem;
+        }
+
+        .profile-pic {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            /* Placeholder styling if image is broken */
+            background-color: #cbd5e1;
+            display: block;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: var(--text-main);
+            text-shadow: 0 1px 2px rgba(255,255,255,0.8);
+        }
+
+        .tagline {
+            font-weight: 600;
+            color: var(--accent);
+            margin: 0.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        .location {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        /* === SOCIAL LINKS === */
+        .social-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            width: 100%;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.8rem 1.2rem;
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .social-btn:hover {
+            background: rgba(255, 255, 255, 0.7);
+            color: var(--accent);
+        }
+
+        .social-btn i {
+            font-size: 1.2rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* === CONTENT SECTION === */
+        .content-card h2 {
+            margin-top: 0;
+            border-bottom: 2px solid rgba(255,255,255,0.6);
+            padding-bottom: 0.5rem;
+            color: var(--text-main);
+            text-shadow: 0 1px 1px rgba(255,255,255,0.8);
+        }
+
+        .bio-text {
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        /* === PORTFOLIO GRID === */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .portfolio-item {
+            background: rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+
+        .portfolio-item:hover {
+            background: rgba(255, 255, 255, 0.6);
+            transform: scale(1.02);
+        }
+
+        .portfolio-item h3 {
+            margin: 0 0 0.5rem 0;
+            font-size: 1.1rem;
+        }
+
+        .portfolio-item p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* === RESPONSIVE DESIGN === */
+        @media (max-width: 768px) {
+            .portfolio-container {
+                grid-template-columns: 1fr;
+            }
+            .profile-card {
+                order: 1;
+            }
+            .content-card {
+                order: 2;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <main class="portfolio-container">
+        
+        <section class="card aero-glass profile-card">
+            <div class="profile-pic-wrapper">
+                <img src="pfp.png" alt="FrostyLobo" class="profile-pic" id="profileImage" onerror="this.src='https://via.placeholder.com/150/cbd5e1/1a2a3a?text=FL'">
+            </div>
+            
+            <h1>FrostyLobo</h1>
+            <div class="tagline">VFX Artist & Solo Game Dev</div>
+            <div class="location"><i class="fa-solid fa-location-dot"></i> Yangon, Myanmar</div>
+
+            <div class="social-links">
+                <a href="https://tiktok.com/@frostylobo" target="_blank" class="aero-glass social-btn">
+                    <i class="fa-brands fa-tiktok"></i> TikTok
+                </a>
+                <a href="https://youtube.com/@FrostyLobo" target="_blank" class="aero-glass social-btn">
+                    <i class="fa-brands fa-youtube" style="color: #ff0000;"></i> YouTube
+                </a>
+                <a href="https://prefabdreams.itch.io" target="_blank" class="aero-glass social-btn">
+                    <i class="fa-brands fa-itch-io" style="color: #fa5c5c;"></i> Itch.io
+                </a>
+                <a href="https://discord.com/users/frostylobo" target="_blank" class="aero-glass social-btn">
+                    <i class="fa-brands fa-discord" style="color: #5865F2;"></i> Discord
+                </a>
+                <a href="https://bsky.app/profile/frostyobo.bsky.social" target="_blank" class="aero-glass social-btn">
+                    <i class="fa-solid fa-cloud"></i> BlueSky
+                </a>
+            </div>
+        </section>
+
+        <section class="card aero-glass content-card">
+            <h2>About Me</h2>
+            <p class="bio-text">
+                Hello! I'm <strong>FrostyLobo</strong>, a passionate Visual Effects Artist and Solo Video Game Developer from Myanmar. I create short VFX clips just for fun. I mostly do mixed reality type visual effects which is taking out the simulation to the real-life or vice versa. In Game Development, I do 3D First Person and Third Person games. My goal is to keep crafting digital experiences that will last long eternally.
+            </p>
+
+      
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // Optional JS: Add a subtle 3D tilt effect to the cards to enhance the Aero Glass feel
+        document.addEventListener('mousemove', (e) => {
+            const cards = document.querySelectorAll('.card');
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 50;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 50;
+            
+            // Only apply effect on desktop screens to prevent weird mobile behavior
+            if (window.innerWidth > 768) {
+                cards.forEach(card => {
+                    // Subtle rotation for a premium feel without overdoing it
+                    card.style.transform = `perspective(1000px) rotateY(${xAxis * 0.1}deg) rotateX(${yAxis * 0.1}deg)`;
+                });
+            }
+        });
+
+        // Reset transform on mouse leave
+        document.addEventListener('mouseleave', () => {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.style.transform = `perspective(1000px) rotateY(0deg) rotateX(0deg)`;
+            });
+        });
+    </script>
+</body>
+</html>
