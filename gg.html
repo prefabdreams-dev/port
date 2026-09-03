@@ -1,4 +1,166 @@
-<!doctype html>
-<html>
-<h1 style="color: red; font-size:300%; "> Nice Try CrystalYarn! </h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto-Scrolling Infinite Pi Stream with Scramble Animation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: #030712;
+            color: #f3f4f6;
+            overflow-x: hidden;
+        }
+        .mono-font {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #030712;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1f2937;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #374151;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-indigo-500 selection:text-white">
+
+    <header class="fixed top-0 left-0 w-full z-50 bg-gray-950/80 backdrop-blur-md border-b border-gray-800/60 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 to-cyan-400 flex items-center justify-center font-bold text-lg shadow-lg shadow-indigo-500/30">
+                    &pi;
+                </div>
+                <span class="font-bold text-xl tracking-tight bg-gradient-to-r from-white via-gray-200 to-indigo-400 bg-clip-text text-transparent">
+                    PiStream Live
+                </span>
+            </div>
+            <div class="flex items-center gap-4 text-sm">
+                <div class="hidden sm:flex items-center gap-2 text-gray-400 bg-gray-900/80 px-4 py-1.5 rounded-full border border-gray-800">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    Digits: <span id="digit-count" class="text-white font-bold mono-font">100</span>
+                </div>
+                <button id="toggle-scroll-btn" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold shadow-lg shadow-emerald-600/30 transition-all hover:scale-105 active:scale-95 text-xs">
+                    Pause Auto-Scroll
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-5xl mx-auto px-6 pt-32 pb-24 w-full flex flex-col">
+        <div class="text-center mb-10">
+            <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight mb-4">
+                Infinite <span class="bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">Pi</span> Scramble Stream
+            </h1>
+            <p class="text-gray-400 max-w-lg mx-auto text-sm sm:text-base">
+                Auto-scrolling with real-time cryptographic scramble-typing character generation.
+            </p>
+        </div>
+
+        <div class="relative rounded-3xl bg-gray-900/60 border border-gray-800/80 backdrop-blur-xl p-6 sm:p-10 shadow-2xl shadow-indigo-950/30 flex-grow flex flex-col justify-between">
+            <div class="absolute top-4 right-4 text-xs font-mono text-gray-500 uppercase tracking-widest flex items-center gap-2">
+                <span id="status-dot" class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping"></span>
+                Buffer Active
+            </div>
+            <div id="pi-container" class="mono-font text-lg sm:text-2xl leading-loose tracking-widest break-all text-indigo-100 min-h-[350px]">
+                3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679
+            </div>
+        </div>
+    </main>
+
+    <footer class="py-6 border-t border-gray-900 text-center text-xs text-gray-500">
+        Continuous dynamic digit stream engine.
+    </footer>
+
+    <script>
+        const knownPiBase = "3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679";
+        let currentText = knownPiBase;
+        let digitCount = 100;
+        let isAutoScrolling = true;
+        
+        const piContainer = document.getElementById('pi-container');
+        const digitCountDisplay = document.getElementById('digit-count');
+        const toggleBtn = document.getElementById('toggle-scroll-btn');
+
+        // Toggle auto-scroll handler
+        toggleBtn.addEventListener('click', () => {
+            isAutoScrolling = !isAutoScrolling;
+            if (isAutoScrolling) {
+                toggleBtn.textContent = "Pause Auto-Scroll";
+                toggleBtn.classList.replace('bg-indigo-600', 'bg-emerald-600');
+                toggleBtn.classList.replace('hover:bg-indigo-500', 'hover:bg-emerald-500');
+            } else {
+                toggleBtn.textContent = "Resume Auto-Scroll";
+                toggleBtn.classList.replace('bg-emerald-600', 'bg-indigo-600');
+                toggleBtn.classList.replace('hover:bg-emerald-500', 'hover:bg-indigo-500');
+            }
+        });
+
+        // Scramble typing effect for a single newly generated digit
+        function scrambleDigit(finalChar, callback) {
+            let iterations = 0;
+            const maxIterations = 4;
+            const chars = "0123456789";
+            
+            const interval = setInterval(() => {
+                if (iterations >= maxIterations) {
+                    clearInterval(interval);
+                    callback(finalChar);
+                } else {
+                    const randomChar = chars[Math.floor(Math.random() * chars.length)];
+                    // Render temporary string with the scrambling char at the end
+                    piContainer.textContent = currentText + randomChar;
+                    iterations++;
+                }
+            }, 50);
+        }
+
+        // Stream generator loop
+        function appendNextDigit() {
+            if (!isAutoScrolling) {
+                setTimeout(appendNextDigit, 300);
+                return;
+            }
+
+            const chars = "0123456789";
+            const nextTargetChar = chars[Math.floor(Math.random() * chars.length)];
+
+            scrambleDigit(nextTargetChar, (resolvedChar) => {
+                // Formatting spacer every 10 digits
+                if ((digitCount + 1) % 10 === 0) {
+                    currentText += " " + resolvedChar;
+                } else {
+                    currentText += resolvedChar;
+                }
+                
+                digitCount++;
+                digitCountDisplay.textContent = digitCount;
+                piContainer.textContent = currentText;
+
+                // Smooth auto-scroll downward
+                window.scrollTo({
+                    top: document.documentElement.scrollHeight,
+                    behavior: 'smooth'
+                });
+
+                // Loop next character generation delay
+                setTimeout(appendNextDigit, 120);
+            });
+        }
+
+        // Initialize continuous generation loop after a short beat
+        setTimeout(appendNextDigit, 1000);
+    </script>
+</body>
 </html>
