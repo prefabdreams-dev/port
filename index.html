@@ -305,10 +305,10 @@
 
   function tryPlay() {
     bgm.play().then(() => {
-      // Audio started successfully, remove interaction listeners
+      // Audio started successfully, remove all listeners
       removeInteractionListeners();
     }).catch(() => {
-      // Autoplay blocked by browser; will play on first user interaction
+      // Autoplay blocked; waiting for user interaction/tilt
     });
   }
 
@@ -317,18 +317,30 @@
     window.removeEventListener('touchstart', tryPlay);
     window.removeEventListener('scroll', tryPlay);
     window.removeEventListener('keydown', tryPlay);
+    window.removeEventListener('deviceorientation', handleTilt);
   }
 
-  // Attempt autoplay immediately
+  // Detect small device tilt (gamma = left/right tilt, beta = front/back tilt)
+  function handleTilt(event) {
+    const tiltX = Math.abs(event.gamma || 0);
+    const tiltY = Math.abs(event.beta || 0);
+
+    // Triggers if tilted more than 1degrees
+    if (tiltX > 1 || tiltY > 1) {
+      tryPlay();
+    }
+  }
+
+  // Attempt autoplay immediately on load
   tryPlay();
 
-  // Fallback: Play on first tap, click, key press, or scroll
+  // Fallbacks: Play on tap, click, key press, scroll, OR device tilt
   window.addEventListener('click', tryPlay);
   window.addEventListener('touchstart', tryPlay);
   window.addEventListener('scroll', tryPlay);
   window.addEventListener('keydown', tryPlay);
+  window.addEventListener('deviceorientation', handleTilt);
 </script>
-    
 
 
     
