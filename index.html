@@ -295,6 +295,43 @@
 
     </main>
 
+<audio id="bgm" src="bgm.mp3" loop preload="auto"></audio>
+
+<script>
+  const bgm = document.getElementById('bgm');
+  
+  // Set volume to 70%
+  bgm.volume = 0.7;
+
+  function tryPlay() {
+    bgm.play().then(() => {
+      // Audio started successfully, remove interaction listeners
+      removeInteractionListeners();
+    }).catch(() => {
+      // Autoplay blocked by browser; will play on first user interaction
+    });
+  }
+
+  function removeInteractionListeners() {
+    window.removeEventListener('click', tryPlay);
+    window.removeEventListener('touchstart', tryPlay);
+    window.removeEventListener('scroll', tryPlay);
+    window.removeEventListener('keydown', tryPlay);
+  }
+
+  // Attempt autoplay immediately
+  tryPlay();
+
+  // Fallback: Play on first tap, click, key press, or scroll
+  window.addEventListener('click', tryPlay);
+  window.addEventListener('touchstart', tryPlay);
+  window.addEventListener('scroll', tryPlay);
+  window.addEventListener('keydown', tryPlay);
+</script>
+    
+
+
+    
     <script>
         // Optional JS: Add a subtle 3D tilt effect to the cards to enhance the Aero Glass feel
         document.addEventListener('mousemove', (e) => {
