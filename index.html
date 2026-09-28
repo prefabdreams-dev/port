@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>FrostyLobo | VFX Artist & Game Developer</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<!-- Removed the Google Fonts link since it is no longer needed -->
+
 
 <style>
-    /* 1. Define your local custom font */
+
     @font-face {
         font-family: 'MyCustomFont';
         src: url('font.ttf') format('truetype');
@@ -16,21 +16,21 @@
         font-style: normal;
     }
 
-    /* === BASE STYLES & BACKGROUND === */
+   
     :root {
         --text-main: #32a4ff;
         --text-muted: #4a5c6a;
         --accent: #0066cc;
     }
 
-    /* 2. Apply the custom font to the whole page */
+
     body {
         margin: 0;
         padding: 0;
-        font-family: 'MyCustomFont', sans-serif; /* Uses font.ttf */
+        font-family: 'MyCustomFont', sans-serif; 
         color: var(--text-main);
         min-height: 100vh;
-        /* Light blue abstract pattern background */
+
         background: 
             radial-gradient(circle at 15% 50%, rgba(135, 206, 250, 0.4), transparent 50%),
             radial-gradient(circle at 85% 30%, rgba(176, 224, 230, 0.6), transparent 50%),
@@ -45,7 +45,6 @@
 
 
 
-        /* === WINDOWS 7 AERO GLASSMORPHISM === */
         .aero-glass {
             background: linear-gradient(
                 135deg,
@@ -64,7 +63,6 @@
             border-radius: 16px;
         }
 
-        /* === LAYOUT === */
         .portfolio-container {
             max-width: 900px;
             width: 100%;
@@ -91,7 +89,7 @@
                 inset 0 1px 0 rgba(255, 255, 255, 1);
         }
 
-        /* === PROFILE SECTION === */
+
         .profile-card {
             display: flex;
             flex-direction: column;
@@ -114,7 +112,7 @@
             height: 100%;
             border-radius: 50%;
             object-fit: cover;
-            /* Placeholder styling if image is broken */
+     
             background-color: #cbd5e1;
             display: block;
         }
@@ -142,7 +140,6 @@
             gap: 0.4rem;
         }
 
-        /* === SOCIAL LINKS === */
         .social-links {
             display: flex;
             flex-direction: column;
@@ -174,7 +171,7 @@
             text-align: center;
         }
 
-        /* === CONTENT SECTION === */
+
         .content-card h2 {
             margin-top: 0;
             border-bottom: 2px solid rgba(255,255,255,0.6);
@@ -188,7 +185,7 @@
             margin-bottom: 2rem;
         }
 
-        /* === PORTFOLIO GRID === */
+
         .portfolio-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -220,7 +217,7 @@
             color: var(--text-muted);
         }
 
-        /* === RESPONSIVE DESIGN === */
+
         @media (max-width: 768px) {
             .portfolio-container {
                 grid-template-columns: 1fr;
@@ -261,7 +258,10 @@
                     <i class="fa-brands fa-discord" style="color: #5865F2;"></i> Discord (Rarely Active)
                 </a>
                 <a href="https://bsky.app/profile/frostylobo.bsky.social" target="_blank" class="aero-glass social-btn">
-                    <i class="fa-solid fa-butterfly"></i> BlueSky (I don't care it)
+                    <i class="fa-brands fa-bluesky"></i> BlueSky (I don't care it)
+                </a>
+                <a href="https://github.com/prefabdreams-dev" target="_blank" class="aero-glass social-btn">
+                    <i class="fa-brands fa-github"></i> Github (My Headache Centre)
                 </a>
                 <a href="https://t.me/frostylobo" target="_blank" class="aero-glass social-btn">
                     <i class="fa-brands fa-telegram"></i> Telegram (Don't DM unnecessarily)
