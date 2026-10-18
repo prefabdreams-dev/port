@@ -565,10 +565,13 @@
         <!-- Top Header Navigation -->
         <header class="header-bar">
             <!-- Window Back Button -->
-            <button class="back-btn" onclick="goBack()" title="Go Back">
-                <i class="fa-solid font-arrow-left fa-arrow-left"></i>
-                <span>Back</span>
-            </button>
+            
+<button class="back-btn" onclick="window.history.back()" title="Go Back">
+    <i class="fa-solid font-arrow-left fa-arrow-left"></i>
+    <span>Back</span>
+</button>
+
+
 
             <!-- Center Page Title -->
             <h1 class="page-title">
@@ -609,7 +612,7 @@
         </div>
 
         <!-- Optional JSON Code Structure Toggle -->
-        <button class="json-viewer-btn" onclick="openJsonModal()">View `ac.json` sample code</button>
+        
     </div>
 
     <!-- Calendar Date Picker Modal -->
