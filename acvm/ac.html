@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Achievements - Frutiger Aero Showcase</title>
+    <!-- Font Awesome Icons -->
+    <!-- Source: https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts Fallback for Custom Font feel -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Custom Font Declaration */
+        @font-face {
+            font-family: 'MyCustomFont';
+            src: url('font.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        :root {
+            --text-main: #1e5288;
+            --text-dark: #0f3460;
+            --text-muted: #4a5c6a;
+            --accent: #0066cc;
+            --accent-glow: #00d2ff;
+            --aero-border: rgba(255, 255, 255, 0.8);
+            --aero-bg: linear-gradient(135deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0.25) 100%);
+        }
+
+        * {
+            box-sizing: border-box;
+            user-select: none;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'MyCustomFont', 'Segoe UI', system-ui, -apple-system, sans-serif; 
+            color: var(--text-main);
+            min-height: 100vh;
+            background: 
+                radial-gradient(circle at 15% 50%, rgba(135, 206, 250, 0.5), transparent 50%),
+                radial-gradient(circle at 85% 30%, rgba(176, 224, 230, 0.7), transparent 50%),
+                radial-gradient(circle at 50% 80%, rgba(0, 210, 255, 0.2), transparent 60%),
+                linear-gradient(135deg, #e0f2fe 0%, #bae6fd 50%, #93c5fd 100%);
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 2rem 1rem;
+            overflow-x: hidden;
+        }
+
+        /* Frutiger Aero Glassmorphism Container */
+        .aero-glass {
+            background: var(--aero-bg);
+            backdrop-filter: blur(20px) saturate(130%);
+            -webkit-backdrop-filter: blur(20px) saturate(130%);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-top: 1.5px solid var(--aero-border);
+            box-shadow: 
+                0 15px 35px rgba(31, 38, 135, 0.18),
+                0 3px 10px rgba(0, 0, 0, 0.05),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9),
+                inset 0 -1px 3px rgba(255, 255, 255, 0.4);
+            border-radius: 20px;
+        }
+
+        /* Main Page Layout */
+        .app-container {
+            width: 100%;
+            max-width: 1080px;
+            min-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            padding: 1.5rem 2rem;
+            margin: 0 auto;
+        }
+
+        /* Header Navigation Bar */
+        .header-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 1.25rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        /* Aero Window Back Button */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.6rem 1.2rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #0b3c6d;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.8) 0%, rgba(215, 238, 255, 0.6) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 
+                0 4px 12px rgba(0, 102, 204, 0.15),
+                inset 0 1px 0 #ffffff;
+            border-radius: 30px;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px) scale(1.03);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(185, 225, 255, 0.8) 100%);
+            box-shadow: 
+                0 6px 18px rgba(0, 102, 204, 0.25),
+                0 0 12px rgba(0, 210, 255, 0.5),
+                inset 0 1px 0 #ffffff;
+            color: #0052a5;
+        }
+
+        .back-btn:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        /* Header Center Title */
+        .page-title {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            margin: 0;
+            font-size: 1.85rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            color: #0d3b66;
+            text-shadow: 
+                0 1px 0 rgba(255, 255, 255, 0.9),
+                0 0 10px rgba(135, 206, 250, 0.6);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .page-title i {
+            color: #2b88d8;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+        }
+
+        /* Calendar Quick Launch Button */
+        .calendar-trigger-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.6rem 1rem;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.7) 0%, rgba(220, 240, 255, 0.5) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            border-radius: 12px;
+            color: #0b3c6d;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .calendar-trigger-btn:hover {
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 0 12px rgba(0, 210, 255, 0.4);
+            color: var(--accent);
+        }
+
+        /* Main Content Grid Area */
+        .content-body {
+            display: flex;
+            gap: 2rem;
+            position: relative;
+            align-items: flex-start;
+        }
+
+        /* Achievements Container */
+        .achievements-feed {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            padding-right: 1rem;
+        }
+
+        /* Year Section Marker Header */
+        .year-header {
+            position: sticky;
+            top: 10px;
+            z-index: 10;
+            margin: 1rem 0 0.5rem 0;
+            padding: 0.4rem 1.2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #004d99;
+            background: linear-gradient(90deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.4) 100%);
+            backdrop-filter: blur(8px);
+            border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.8);
+            width: fit-content;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        /* Achievement Card Styling */
+        .achievement-card {
+            display: flex;
+            background: linear-gradient(120deg, rgba(255, 255, 255, 0.75) 0%, rgba(240, 248, 255, 0.45) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 16px;
+            padding: 1.25rem;
+            gap: 1.25rem;
+            transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 
+                0 6px 20px rgba(0, 68, 148, 0.08),
+                inset 0 1px 0 rgba(255,255,255,1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Aero Glass Highlight Reflection Effect */
+        .achievement-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 70%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transform: skewX(-25deg);
+            transition: 0.75s;
+            pointer-events: none;
+        }
+
+        .achievement-card:hover::before {
+            left: 150%;
+        }
+
+        .achievement-card:hover {
+            transform: translateY(-4px) scale(1.01);
+            box-shadow: 
+                0 12px 30px rgba(0, 102, 204, 0.2),
+                0 0 15px rgba(0, 210, 255, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 1);
+            border-color: rgba(255, 255, 255, 1);
+        }
+
+        .card-image-wrap {
+            width: 110px;
+            height: 110px;
+            min-width: 110px;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 2px solid rgba(255, 255, 255, 0.9);
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.1), 0 4px 10px rgba(0,0,0,0.1);
+            background: #dbeafe;
+            position: relative;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .achievement-card:hover .card-image {
+            transform: scale(1.08);
+        }
+
+        .card-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex: 1;
+        }
+
+        .card-title {
+            margin: 0 0 0.4rem 0;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card-desc {
+            margin: 0 0 0.75rem 0;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.45;
+        }
+
+        .card-date-badge {
+            align-self: flex-start;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #005fb8;
+            background: linear-gradient(180deg, rgba(224, 242, 254, 0.9) 0%, rgba(186, 230, 253, 0.7) 100%);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: inset 0 1px 0 #fff;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* Gallery-Style Timeline Side Slider */
+        .timeline-sidebar {
+            width: 90px;
+            position: sticky;
+            top: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem 0.5rem;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.2) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: 30px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Floating Date Indicator tooltip on scroll */
+        .scroll-date-popup {
+            position: absolute;
+            left: -135px;
+            padding: 0.4rem 0.8rem;
+            background: linear-gradient(135deg, #0066cc 0%, #0099ff 100%);
+            color: #ffffff;
+            font-size: 0.85rem;
+            font-weight: 700;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 102, 204, 0.3), inset 0 1px 0 rgba(255,255,255,0.4);
+            border: 1px solid rgba(255,255,255,0.6);
+            pointer-events: none;
+            opacity: 0;
+            transform: translateX(10px);
+            transition: opacity 0.2s ease, transform 0.2s ease, top 0.1s ease-out;
+            white-space: nowrap;
+        }
+
+        .scroll-date-popup::after {
+            content: '';
+            position: absolute;
+            right: -6px;
+            top: 50%;
+            transform: translateY(-50%);
+            border-width: 6px 0 6px 6px;
+            border-style: solid;
+            border-color: transparent transparent transparent #0099ff;
+        }
+
+        .scroll-date-popup.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Year Navigation Markers */
+        .year-ticks {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            align-items: center;
+            width: 100%;
+            margin: 0.5rem 0;
+        }
+
+        .year-mark {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #3b5998;
+            padding: 0.3rem 0.6rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            position: relative;
+        }
+
+        .year-mark:hover, .year-mark.active {
+            color: #ffffff;
+            background: linear-gradient(180deg, #0088ff 0%, #0055cc 100%);
+            box-shadow: 0 2px 8px rgba(0, 119, 255, 0.4);
+        }
+
+        /* Custom Aero Scroll Bar Track indicator */
+        .timeline-track {
+            width: 4px;
+            height: 120px;
+            background: rgba(0, 102, 204, 0.15);
+            border-radius: 4px;
+            margin: 0.5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .timeline-progress {
+            width: 100%;
+            height: 0%;
+            background: linear-gradient(180deg, #00c6ff 0%, #0072ff 100%);
+            border-radius: 4px;
+            transition: height 0.1s linear;
+        }
+
+        /* Calendar Picker Popover Modal */
+        .calendar-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(15, 34, 64, 0.35);
+            backdrop-filter: blur(8px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .calendar-modal.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .calendar-box {
+            width: 320px;
+            padding: 1.5rem;
+            transform: scale(0.9);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .calendar-modal.open .calendar-box {
+            transform: scale(1);
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            color: #0b3c6d;
+        }
+
+        .calendar-close {
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: #555;
+            transition: color 0.2s;
+        }
+
+        .calendar-close:hover {
+            color: #000;
+        }
+
+        .date-input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .date-input-group input {
+            padding: 0.75rem;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 102, 204, 0.3);
+            background: rgba(255, 255, 255, 0.9);
+            font-family: inherit;
+            font-size: 1rem;
+            color: #0b3c6d;
+            outline: none;
+        }
+
+        .date-input-group input:focus {
+            border-color: #0072ff;
+            box-shadow: 0 0 10px rgba(0, 114, 255, 0.3);
+        }
+
+        .calendar-action-btn {
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(180deg, #0099ff 0%, #0055cc 100%);
+            color: white;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 85, 204, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .calendar-action-btn:hover {
+            background: linear-gradient(180deg, #1aa3ff 0%, #0066ee 100%);
+            transform: translateY(-1px);
+        }
+
+        /* JSON Code Modal Viewer */
+        .json-viewer-btn {
+            margin-top: 1.5rem;
+            align-self: center;
+            font-size: 0.85rem;
+            color: #0066cc;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            text-decoration: underline;
+            opacity: 0.8;
+            transition: opacity 0.2s;
+        }
+
+        .json-viewer-btn:hover {
+            opacity: 1;
+        }
+
+        /* Responsive Mobile Optimizations */
+        @media (max-width: 768px) {
+            body {
+                padding: 0.75rem;
+            }
+            .app-container {
+                padding: 1rem;
+            }
+            .page-title {
+                font-size: 1.3rem;
+            }
+            .achievement-card {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .card-date-badge {
+                align-self: center;
+            }
+            .timeline-sidebar {
+                width: 60px;
+            }
+            .scroll-date-popup {
+                left: -110px;
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main Aero Glass Container -->
+    <div class="app-container aero-glass">
+
+        <!-- Top Header Navigation -->
+        <header class="header-bar">
+            <!-- Window Back Button -->
+            <button class="back-btn" onclick="goBack()" title="Go Back">
+                <i class="fa-solid font-arrow-left fa-arrow-left"></i>
+                <span>Back</span>
+            </button>
+
+            <!-- Center Page Title -->
+            <h1 class="page-title">
+                <i class="fa-solid fa-trophy"></i>
+                Achievements
+            </h1>
+
+            <!-- Calendar Quick Jump Trigger -->
+            <button class="calendar-trigger-btn" onclick="openCalendar()" title="Jump to Date">
+                <i class="fa-regular fa-calendar-days"></i>
+                <span>Jump Date</span>
+            </button>
+        </header>
+
+        <!-- Main Body Area -->
+        <div class="content-body">
+            
+            <!-- List/Feed of Achievements -->
+            <main class="achievements-feed" id="achievementsList">
+                <!-- Achievement cards will be dynamically injected here from ac.json -->
+            </main>
+
+            <!-- Gallery-style Timeline Navigation Side Slider -->
+            <aside class="timeline-sidebar">
+                <div class="scroll-date-popup" id="datePopup">Jan 2026</div>
+                
+                <i class="fa-solid fa-compass" style="color: #0066cc; font-size: 1.1rem; margin-bottom: 0.5rem;"></i>
+                
+                <div class="timeline-track">
+                    <div class="timeline-progress" id="timelineProgress"></div>
+                </div>
+
+                <!-- Year Marks -->
+                <div class="year-ticks" id="yearTicksContainer">
+                    <!-- Year tags generated dynamically based on loaded data -->
+                </div>
+            </aside>
+        </div>
+
+        <!-- Optional JSON Code Structure Toggle -->
+        <button class="json-viewer-btn" onclick="openJsonModal()">View `ac.json` sample code</button>
+    </div>
+
+    <!-- Calendar Date Picker Modal -->
+    <div class="calendar-modal" id="calendarModal">
+        <div class="calendar-box aero-glass">
+            <div class="calendar-header">
+                <span><i class="fa-solid fa-calendar-alt"></i> Select Target Date</span>
+                <i class="fa-solid fa-xmark calendar-close" onclick="closeCalendar()"></i>
+            </div>
+            <div class="date-input-group">
+                <label for="targetDateInput" style="font-size:0.85rem; color:#4a5c6a;">Pick any date to jump to:</label>
+                <input type="date" id="targetDateInput">
+            </div>
+            <button class="calendar-action-btn" onclick="jumpToSelectedDate()">Scroll to Date</button>
+        </div>
+    </div>
+
+    <!-- ac.json Code View Modal -->
+    <div class="calendar-modal" id="jsonModal">
+        <div class="calendar-box aero-glass" style="width: 500px; max-width: 90vw;">
+            <div class="calendar-header">
+                <span><i class="fa-solid fa-code"></i> Example `ac.json` File</span>
+                <i class="fa-solid fa-xmark calendar-close" onclick="closeJsonModal()"></i>
+            </div>
+            <pre style="background: rgba(255,255,255,0.8); padding:1rem; border-radius:10px; overflow-x:auto; font-size:0.85rem; color:#0f3460; border: 1px solid rgba(0,0,0,0.1);" id="jsonDisplayCode"></pre>
+        </div>
+    </div>
+
+    <!-- JavaScript Brain Implementation -->
+    <script>
+        // Sample default data as fallback if ac.json is accessed locally without HTTP server
+        const fallbackAchievements = [
+            {
+                "id": "1",
+                "title": "Master of Algorithms",
+                "description": "Successfully designed and optimized high-performance real-time data processing engines.",
+                "date": "2026-03-15",
+                "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=300&q=80"
+            },
+            {
+                "id": "2",
+                "title": "Aero Interface Pioneer",
+                "description": "Crafted breathtaking user experiences blending classical glossy Aero styling with modern Web APIs.",
+                "date": "2025-11-20",
+                "image": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=300&q=80"
+            },
+            {
+                "id": "3",
+                "title": "Full-Stack Excellence",
+                "description": "Built resilient cloud services and intuitive front-ends with seamless responsiveness.",
+                "date": "2025-06-10",
+                "image": "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=300&q=80"
+            },
+            {
+                "id": "4",
+                "title": "First Code Milestone",
+                "description": "Kicked off the journey into full-stack software development and UI/UX design.",
+                "date": "2024-01-05",
+                "image": "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=300&q=80"
+            }
+        ];
+
+        let achievementsData = [];
+
+        // Window Back Button Action
+        function goBack() {
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                alert("This is the main achievements page.");
+            }
+        }
+
+        // Fetch data from ac.json on load
+        async function loadAchievements() {
+            try {
+                const response = await fetch('ac.json');
+                if (!response.ok) throw new Error("HTTP error " + response.status);
+                achievementsData = await response.json();
+            } catch (err) {
+                console.warn("Could not load external ac.json (or local CORS restricted). Loading fallback data:", err);
+                achievementsData = fallbackAchievements;
+            }
+
+            // Sort data by date descending (newest first)
+            achievementsData.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            renderAchievements();
+            setupYearTicks();
+            setupScrollListener();
+        }
+
+        // Render Cards into HTML
+        function renderAchievements() {
+            const feed = document.getElementById('achievementsList');
+            feed.innerHTML = '';
+
+            let currentYear = '';
+
+            achievementsData.forEach((item) => {
+                const itemYear = new Date(item.date).getFullYear();
+
+                // Inject Year Marker Header when year changes
+                if (itemYear !== currentYear) {
+                    currentYear = itemYear;
+                    const yearHeader = document.createElement('div');
+                    yearHeader.className = 'year-header';
+                    yearHeader.id = `year-section-${currentYear}`;
+                    yearHeader.innerHTML = `<i class="fa-regular fa-calendar"></i> ${currentYear}`;
+                    feed.appendChild(yearHeader);
+                }
+
+                // Format friendly display date
+                const formattedDate = new Date(item.date).toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',
+                    day: 'numeric'
+                });
+
+                // Create Card Element
+                const card = document.createElement('article');
+                card.className = 'achievement-card';
+                card.dataset.date = item.date;
+
+                card.innerHTML = `
+                    <div class="card-image-wrap">
+                        <img src="${item.image}" alt="${item.title}" class="card-image" onerror="this.src='https://placehold.co/110x110/bae6fd/0066cc?text=Achievement'">
+                    </div>
+                    <div class="card-content">
+                        <h2 class="card-title">
+                            <span>${item.title}</span>
+                            <i class="fa-solid fa-ribbon" style="color: #0099ff; font-size:1rem;"></i>
+                        </h2>
+                        <p class="card-desc">${item.description}</p>
+                        <span class="card-date-badge">
+                            <i class="fa-regular fa-clock"></i> ${formattedDate}
+                        </span>
+                    </div>
+                `;
+                feed.appendChild(card);
+            });
+
+            // Set code display in JSON modal
+            document.getElementById('jsonDisplayCode').textContent = JSON.stringify(achievementsData.slice(0, 2), null, 2);
+        }
+
+        // Setup Year Marks on Timeline Side Slider
+        function setupYearTicks() {
+            const container = document.getElementById('yearTicksContainer');
+            container.innerHTML = '';
+
+            // Extract unique years
+            const years = [...new Set(achievementsData.map(item => new Date(item.date).getFullYear()))];
+
+            years.forEach(year => {
+                const tick = document.createElement('div');
+                tick.className = 'year-mark';
+                tick.textContent = year;
+                tick.onclick = () => scrollToYear(year);
+                container.appendChild(tick);
+            });
+        }
+
+        // Scroll smooth to specified year
+        function scrollToYear(year) {
+            const header = document.getElementById(`year-section-${year}`);
+            if (header) {
+                header.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // Timeline Scroll & Active Date Detection Engine
+        function setupScrollListener() {
+            const popup = document.getElementById('datePopup');
+            const progress = document.getElementById('timelineProgress');
+            let scrollTimeout;
+
+            window.addEventListener('scroll', () => {
+                // Calculate scroll depth percentage
+                const scrollTop = window.scrollY;
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                const scrollPercent = Math.min(Math.max((scrollTop / (docHeight || 1)) * 100, 0), 100);
+                
+                progress.style.height = `${scrollPercent}%`;
+
+                // Find active card visible in viewport
+                const cards = document.querySelectorAll('.achievement-card');
+                let currentVisibleDate = null;
+
+                cards.forEach(card => {
+                    const rect = card.getBoundingClientRect();
+                    if (rect.top <= window.innerHeight / 2 && rect.bottom >= 0) {
+                        currentVisibleDate = card.dataset.date;
+                    }
+                });
+
+                if (currentVisibleDate) {
+                    const dateObj = new Date(currentVisibleDate);
+                    const labelText = dateObj.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+                    popup.textContent = labelText;
+
+                    // Position popup relative to scroll progress
+                    popup.style.top = `${Math.min(Math.max(scrollPercent * 1.2, 10), 110)}px`;
+                    popup.classList.add('active');
+
+                    clearTimeout(scrollTimeout);
+                    scrollTimeout = setTimeout(() => {
+                        popup.classList.remove('active');
+                    }, 1200);
+                }
+            });
+        }
+
+        // Calendar Modal Controls
+        function openCalendar() {
+            document.getElementById('calendarModal').classList.add('open');
+        }
+
+        function closeCalendar() {
+            document.getElementById('calendarModal').classList.remove('open');
+        }
+
+        // Jump to nearest achievement matching user input date
+        function jumpToSelectedDate() {
+            const inputVal = document.getElementById('targetDateInput').value;
+            if (!inputVal) return;
+
+            const targetTime = new Date(inputVal).getTime();
+            let closestCard = null;
+            let smallestDiff = Infinity;
+
+            const cards = document.querySelectorAll('.achievement-card');
+            cards.forEach(card => {
+                const cardTime = new Date(card.dataset.date).getTime();
+                const diff = Math.abs(cardTime - targetTime);
+                if (diff < smallestDiff) {
+                    smallestDiff = diff;
+                    closestCard = card;
+                }
+            });
+
+            if (closestCard) {
+                closestCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                closestCard.style.outline = '2px solid #0099ff';
+                closestCard.style.boxShadow = '0 0 25px rgba(0, 153, 255, 0.6)';
+                setTimeout(() => {
+                    closestCard.style.outline = 'none';
+                }, 2000);
+            }
+
+            closeCalendar();
+        }
+
+        // JSON Code Viewer Modal Functions
+        function openJsonModal() {
+            document.getElementById('jsonModal').classList.add('open');
+        }
+
+        function closeJsonModal() {
+            document.getElementById('jsonModal').classList.remove('open');
+        }
+
+        // On Page Load Initialization
+        window.onload = function() {
+            loadAchievements();
+        };
+    </script>
+</body>
+</html>
